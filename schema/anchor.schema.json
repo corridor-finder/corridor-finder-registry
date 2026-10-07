@@ -1,0 +1,540 @@
+{
+  "title": "Corridor Finder anchor record",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "type": "number",
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "home_domain": {
+      "type": "string",
+      "pattern": "^(?=.{1,253}$)([a-z0-9-]+\\.)+[a-z]{2,}$"
+    },
+    "website": {
+      "type": "string",
+      "format": "uri"
+    },
+    "sep_support": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "minItems": 1,
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "exclusiveMinimum": 0,
+            "maximum": 9007199254740991
+          }
+        },
+        "sources": {
+          "minItems": 1,
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "uri"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "stellar_toml",
+                  "sep_info",
+                  "sep38_info",
+                  "official_docs",
+                  "regulator",
+                  "other"
+                ]
+              },
+              "retrieved_at": {
+                "type": "string",
+                "format": "date",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "url",
+              "type",
+              "retrieved_at"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "value",
+        "sources"
+      ],
+      "additionalProperties": false
+    },
+    "services": {
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "country": {
+            "type": "string",
+            "pattern": "^[A-Z]{2}$"
+          },
+          "direction": {
+            "type": "string",
+            "enum": [
+              "on_ramp",
+              "off_ramp",
+              "both"
+            ]
+          },
+          "assets": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "minItems": 1,
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "pattern": "^[A-Za-z0-9]{1,12}$"
+                    },
+                    "issuer": {
+                      "type": "string",
+                      "pattern": "^G[A-Z2-7]{55}$"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "issuer"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "sources": {
+                "minItems": 1,
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "stellar_toml",
+                        "sep_info",
+                        "sep38_info",
+                        "official_docs",
+                        "regulator",
+                        "other"
+                      ]
+                    },
+                    "retrieved_at": {
+                      "type": "string",
+                      "format": "date",
+                      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+                    },
+                    "note": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "url",
+                    "type",
+                    "retrieved_at"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "value",
+              "sources"
+            ],
+            "additionalProperties": false
+          },
+          "fiat_currencies": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "minItems": 1,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[A-Z]{3}$"
+                }
+              },
+              "sources": {
+                "minItems": 1,
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "stellar_toml",
+                        "sep_info",
+                        "sep38_info",
+                        "official_docs",
+                        "regulator",
+                        "other"
+                      ]
+                    },
+                    "retrieved_at": {
+                      "type": "string",
+                      "format": "date",
+                      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+                    },
+                    "note": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "url",
+                    "type",
+                    "retrieved_at"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "value",
+              "sources"
+            ],
+            "additionalProperties": false
+          },
+          "payment_rails": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "minItems": 1,
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "bank_transfer",
+                        "mobile_money",
+                        "cash",
+                        "card",
+                        "wallet",
+                        "other"
+                      ]
+                    },
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "sources": {
+                "minItems": 1,
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "stellar_toml",
+                        "sep_info",
+                        "sep38_info",
+                        "official_docs",
+                        "regulator",
+                        "other"
+                      ]
+                    },
+                    "retrieved_at": {
+                      "type": "string",
+                      "format": "date",
+                      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+                    },
+                    "note": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "url",
+                    "type",
+                    "retrieved_at"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "value",
+              "sources"
+            ],
+            "additionalProperties": false
+          },
+          "fees": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "object",
+                "properties": {
+                  "fixed": {
+                    "type": "string",
+                    "pattern": "^\\d+(\\.\\d+)?$"
+                  },
+                  "percent": {
+                    "type": "string",
+                    "pattern": "^\\d+(\\.\\d+)?$"
+                  },
+                  "minimum": {
+                    "type": "string",
+                    "pattern": "^\\d+(\\.\\d+)?$"
+                  },
+                  "unit": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9]{1,12}$"
+                  }
+                },
+                "additionalProperties": false
+              },
+              "sources": {
+                "minItems": 1,
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "stellar_toml",
+                        "sep_info",
+                        "sep38_info",
+                        "official_docs",
+                        "regulator",
+                        "other"
+                      ]
+                    },
+                    "retrieved_at": {
+                      "type": "string",
+                      "format": "date",
+                      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+                    },
+                    "note": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "url",
+                    "type",
+                    "retrieved_at"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "value",
+              "sources"
+            ],
+            "additionalProperties": false
+          },
+          "limits": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "object",
+                "properties": {
+                  "min": {
+                    "type": "string",
+                    "pattern": "^\\d+(\\.\\d+)?$"
+                  },
+                  "max": {
+                    "type": "string",
+                    "pattern": "^\\d+(\\.\\d+)?$"
+                  },
+                  "unit": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9]{1,12}$"
+                  }
+                },
+                "required": [
+                  "unit"
+                ],
+                "additionalProperties": false
+              },
+              "sources": {
+                "minItems": 1,
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "stellar_toml",
+                        "sep_info",
+                        "sep38_info",
+                        "official_docs",
+                        "regulator",
+                        "other"
+                      ]
+                    },
+                    "retrieved_at": {
+                      "type": "string",
+                      "format": "date",
+                      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+                    },
+                    "note": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "url",
+                    "type",
+                    "retrieved_at"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "value",
+              "sources"
+            ],
+            "additionalProperties": false
+          },
+          "speed": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "object",
+                "properties": {
+                  "min_minutes": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "max_minutes": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  }
+                },
+                "additionalProperties": false
+              },
+              "sources": {
+                "minItems": 1,
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "stellar_toml",
+                        "sep_info",
+                        "sep38_info",
+                        "official_docs",
+                        "regulator",
+                        "other"
+                      ]
+                    },
+                    "retrieved_at": {
+                      "type": "string",
+                      "format": "date",
+                      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+                    },
+                    "note": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "url",
+                    "type",
+                    "retrieved_at"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "value",
+              "sources"
+            ],
+            "additionalProperties": false
+          },
+          "verification": {
+            "type": "string",
+            "enum": [
+              "curated",
+              "anchor_confirmed"
+            ]
+          }
+        },
+        "required": [
+          "country",
+          "direction",
+          "assets",
+          "fiat_currencies",
+          "verification"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "schema_version",
+    "id",
+    "name",
+    "home_domain",
+    "services"
+  ],
+  "additionalProperties": false
+}

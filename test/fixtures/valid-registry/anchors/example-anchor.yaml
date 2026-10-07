@@ -1,0 +1,53 @@
+# yaml-language-server: $schema=../../../../schema/anchor.schema.json
+#
+# TEST FIXTURE. Every value here is invented (example.com domain, placeholder issuer key).
+# It shows the record format only. Never copy values from this file into registry/.
+schema_version: 1
+id: example-anchor
+name: Example Anchor
+home_domain: anchor.example.com
+website: https://anchor.example.com
+
+sep_support:
+  value: [6, 24, 38]
+  sources:
+    - url: https://anchor.example.com/.well-known/stellar.toml
+      type: stellar_toml
+      retrieved_at: 2026-10-01
+
+services:
+  - country: NG
+    direction: both
+    verification: curated
+    assets:
+      value:
+        - code: USDC
+          issuer: GAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+      sources:
+        - url: https://anchor.example.com/.well-known/stellar.toml
+          type: stellar_toml
+          retrieved_at: 2026-10-01
+    fiat_currencies:
+      value: [NGN]
+      sources:
+        - url: https://anchor.example.com/docs/supported-countries
+          type: official_docs
+          retrieved_at: 2026-10-01
+    payment_rails:
+      value:
+        - type: bank_transfer
+      sources:
+        - url: https://anchor.example.com/docs/supported-countries
+          type: official_docs
+          retrieved_at: 2026-10-01
+    fees:
+      value:
+        percent: '1.5'
+        minimum: '2'
+        unit: USDC
+      sources:
+        - url: https://anchor.example.com/sep24/info
+          type: sep_info
+          retrieved_at: 2026-10-01
+    # No limits or speed: the anchor does not publish them, so they are simply omitted
+    # and shown as "unavailable" to users.
